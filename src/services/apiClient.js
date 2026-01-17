@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-// API base URL - configured from environment or defaults to localhost
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:9090/api/v1';
+// Use relative path on Vercel (Vercel will rewrite to ALB), or direct ALB for local dev
+const isProduction = import.meta.env.PROD;
+const API_BASE_URL = isProduction ? '/api/v1' : (import.meta.env.VITE_API_URL || 'http://localhost:9090/api/v1');
 
 // Create axios instance with default config
 const apiClient = axios.create({

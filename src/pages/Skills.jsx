@@ -1,70 +1,58 @@
-import { useEffect, useState } from 'react';
+import { SKILLS } from '../data/profile';
+import { Code2, Database, Cloud, Layers } from 'lucide-react';
+
+const CATEGORY_ICONS = {
+  Languages: Code2,
+  'Frameworks & Libraries': Layers,
+  'Tools & Platforms': Cloud,
+  'Coursework & Domains': Database,
+};
 
 export const Skills = () => {
-  const [skills, setSkills] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchSkills = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/skills');
-        const data = await response.json();
-        setSkills(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSkills();
-  }, []);
-
-  if (loading) return <div className="min-h-screen bg-gray-50 flex items-center justify-center"><p className="text-gray-500">Loading...</p></div>;
-  if (error) return <div className="min-h-screen bg-gray-50 flex items-center justify-center"><p className="text-red-500">Error: {error}</p></div>;
-
-  // Group skills by category
-  const groupedSkills = skills.reduce((acc, skill) => {
-    const category = skill.category || 'Other';
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(skill);
+  const grouped = SKILLS.reduce((acc, skill) => {
+    (acc[skill.category] = acc[skill.category] || []).push(skill);
     return acc;
   }, {});
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Skills</h1>
-          <p className="text-gray-600">Technologies and expertise</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-16">
+      <div className="max-w-5xl mx-auto px-4">
+        <header className="mb-12">
+          <p className="text-xs font-semibold tracking-[0.2em] text-blue-600 uppercase mb-3">Skill map</p>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">Skills</h1>
+          <p className="text-slate-600 max-w-2xl text-sm md:text-base">
+            Languages, frameworks, tools and coursework I use to build reliable systems across backend, frontend and cloud.
+          </p>
+        </header>
 
-        {/* Skills by Category */}
-        <div className="space-y-10">
-          {Object.entries(groupedSkills).map(([category, categorySkills]) => (
-            <section key={category}>
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">{category}</h2>
-              <div className="flex flex-wrap gap-3">
-                {categorySkills.map((skill) => (
-                  <div
-                    key={skill.id}
-                    className="bg-white border border-gray-200 rounded-lg px-4 py-2 hover:shadow-md transition-shadow"
-                  >
-                    <span className="text-gray-700 font-medium">{skill.name}</span>
+        <div className="grid gap-6 md:grid-cols-2">
+          {Object.entries(grouped).map(([category, skills]) => {
+            const Icon = CATEGORY_ICONS[category] ?? Layers;
+            return (
+              <section
+                key={category}
+                className="rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-sm p-6 shadow-sm hover:shadow-lg hover:border-blue-200 transition-all"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                    <Icon size={20} />
                   </div>
-                ))}
-              </div>
-            </section>
-          ))}
+                  <h2 className="text-lg font-semibold text-slate-900">{category}</h2>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <span
+                      key={skill.id}
+                      className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700"
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
-
-        {skills.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No skills found</p>
-          </div>
-        )}
       </div>
     </div>
   );

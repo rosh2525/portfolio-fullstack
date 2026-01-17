@@ -1,120 +1,64 @@
-import { useEffect, useState } from 'react';
-import { Calendar, MapPin, ArrowRight } from 'lucide-react';
-
-const DEMO_EXPERIENCE = [
-  {
-    id: 1,
-    jobTitle: "Senior Full-Stack Developer",
-    company: "Tech Innovators Inc.",
-    location: "San Francisco, CA",
-    startDate: "2023-01-15",
-    endDate: null,
-    description: "Leading the design and implementation of microservices architecture. Architected scalable APIs serving 1M+ users. Mentored junior developers and established best practices for the team."
-  },
-  {
-    id: 2,
-    jobTitle: "Full-Stack Developer",
-    company: "StartUp Solutions",
-    location: "Remote",
-    startDate: "2021-06-01",
-    endDate: "2022-12-31",
-    description: "Developed and maintained full-stack applications using React and Node.js. Implemented CI/CD pipelines, reducing deployment time by 60%. Collaborated with product team to deliver features on schedule."
-  },
-  {
-    id: 3,
-    jobTitle: "Junior Developer",
-    company: "Digital Systems Ltd.",
-    location: "New York, NY",
-    startDate: "2020-03-01",
-    endDate: "2021-05-31",
-    description: "Built responsive web applications using React and Vue.js. Worked on bug fixes and feature enhancements. Learned best practices in web development and software engineering."
-  }
-];
+import { Calendar, MapPin } from 'lucide-react';
+import { EXPERIENCE } from '../data/profile';
 
 export const Experience = () => {
-  const [experiences, setExperiences] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchExperience = async () => {
-      try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-        const response = await fetch(`${apiUrl}/api/experience`);
-        if (!response.ok) throw new Error('Failed to fetch');
-        const data = await response.json();
-        setExperiences(data);
-      } catch (err) {
-        console.warn('Using demo experience:', err.message);
-        setExperiences(DEMO_EXPERIENCE);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchExperience();
-  }, []);
-
-  if (loading) return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
-      <div className="text-center">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-        <p className="text-gray-600">Loading experience...</p>
-      </div>
-    </div>
-  );
+  const experiences = EXPERIENCE;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16">
       <div className="max-w-4xl mx-auto px-4">
-        {/* Header */}
         <div className="mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 tracking-tight">Experience</h1>
-          <p className="text-lg text-gray-600 max-w-2xl">A timeline of my professional journey and key roles.</p>
+          <p className="text-xs font-semibold tracking-[0.2em] text-blue-600 uppercase mb-3">Journey</p>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">Experience</h1>
+          <p className="text-gray-600 max-w-2xl text-sm md:text-base">
+            Roles and work that best represent how I build, ship, and improve systems.
+          </p>
         </div>
 
-        {/* Experience Timeline */}
         <div className="space-y-8">
           {experiences.map((exp, idx) => (
             <div key={exp.id} className="relative">
-              {/* Timeline Line */}
               {idx !== experiences.length - 1 && (
-                <div className="absolute left-6 top-16 bottom-0 w-1 bg-gradient-to-b from-blue-600 to-blue-200"></div>
+                <div className="absolute left-6 top-16 bottom-0 w-1 bg-gradient-to-b from-blue-600/80 to-blue-200/40" />
               )}
 
-              {/* Timeline Dot */}
               <div className="absolute left-0 top-2 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center border-4 border-gray-50 z-10">
-                <div className="w-2 h-2 bg-white rounded-full"></div>
+                <div className="w-2 h-2 bg-white rounded-full" />
               </div>
 
-              {/* Content Card */}
-              <div className="ml-20 bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg hover:border-blue-300 transition-all">
-                <div className="flex items-start justify-between mb-3">
+              <div className="ml-20 bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all">
+                <div className="flex items-start justify-between gap-4 mb-4">
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-1">{exp.jobTitle}</h3>
-                    <div className="flex items-center gap-2 text-gray-600 font-semibold mb-3">
-                      <span className="text-lg">{exp.company}</span>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-1">{exp.title}</h3>
+                    <div className="flex items-center gap-2 text-gray-700 font-medium mb-2">
+                      <span>{exp.company}</span>
                       {exp.location && (
                         <>
                           <span className="text-gray-300">•</span>
                           <MapPin size={16} className="text-gray-400" />
-                          <span className="text-sm">{exp.location}</span>
+                          <span className="text-sm text-gray-600">{exp.location}</span>
                         </>
                       )}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-4 bg-gray-50 w-fit px-3 py-1 rounded-lg">
+                <div className="inline-flex items-center gap-2 text-xs md:text-sm text-gray-600 mb-4 bg-gray-50 px-3 py-1 rounded-lg">
                   <Calendar size={14} />
-                  {new Date(exp.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                  {' - '}
-                  {exp.endDate 
-                    ? new Date(exp.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-                    : 'Present'
-                  }
+                  <span>
+                    {exp.start} 
+                    {exp.end ? ` b7 ${exp.end}` : ' b7 Present'}
+                  </span>
                 </div>
 
-                <p className="text-gray-700 leading-relaxed">{exp.description}</p>
+                <ul className="mt-2 space-y-2 text-gray-700 text-sm md:text-base">
+                  {exp.bullets.map((point, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           ))}

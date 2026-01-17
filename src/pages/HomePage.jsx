@@ -24,14 +24,14 @@ export const HomePage = () => (
           </span>
         </h1>
         <p className="text-2xl md:text-3xl text-gray-400 font-light">
-          Full Stack Developer & Software Engineer
+          Software Engineer | Full Stack Developer | AI/ML Enthusiast
         </p>
       </div>
 
       {/* Description */}
       <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-        I build scalable, high-performance applications using modern technologies.
-        Experienced with Java Spring Boot, React, Docker, and cloud infrastructure.
+        B.Tech in Bioengineering from IIT Jodhpur. Passionate about building scalable applications with Python, Java, and cloud infrastructure.
+        Experience in embedded systems, network automation, and AI-driven solutions.
       </p>
 
       {/* CTA Buttons */}
@@ -50,18 +50,24 @@ export const HomePage = () => (
         </a>
       </div>
 
+      {/* Contact Info */}
+      <div className="pt-8 space-y-2 text-gray-400 text-sm">
+        <p>📧 techsavvy.roshan@gmail.com | b23bb1037@iitj.ac.in</p>
+        <p>📱 +91-7604864645</p>
+      </div>
+
       {/* Quick Links */}
-      <div className="flex justify-center items-center gap-6 pt-12">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
+      <div className="flex justify-center items-center gap-6 pt-8">
+        <a href="https://github.com/rosh2525" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
           GitHub
         </a>
         <span className="text-gray-600">•</span>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
+        <a href="https://linkedin.com/in/roshan-kumar" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
           LinkedIn
         </a>
         <span className="text-gray-600">•</span>
-        <a href="mailto:roshan@example.com" className="text-gray-400 hover:text-white transition text-2xl">
-          Email
+        <a href="https://codeforces.com/profile/RoshanKumar2525" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
+          Codeforces
         </a>
       </div>
     </div>

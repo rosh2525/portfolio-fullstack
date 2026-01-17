@@ -1,86 +1,53 @@
-import { useFetch } from '../hooks';
-import { experienceService } from '../services/dataService';
-import { Section, Card, Badge, Skeleton, ErrorMessage } from '../components/UI';
-
-/**
- * Experience page - Display work experiences from backend
- */
 export const ExperiencePage = () => {
-  const { data: experiences, loading, error } = useFetch(experienceService.getAllExperiences);
-
-  const handleRetry = () => {
-    window.location.reload();
-  };
-
-  if (loading) {
-    return (
-      <Section title="Experience" icon="💼">
-        {[1, 2].map((i) => (
-          <Card key={i} className="mb-6">
-            <Skeleton height="h-6" className="mb-2 w-1/3" />
-            <Skeleton height="h-4" className="mb-4 w-1/2" />
-            <Skeleton height="h-4" />
-          </Card>
-        ))}
-      </Section>
-    );
-  }
-
-  if (error) {
-    return (
-      <Section title="Experience" icon="💼">
-        <ErrorMessage message={error} onRetry={handleRetry} />
-      </Section>
-    );
-  }
+  const experience = [
+    {
+      id: 1,
+      title: "Software Engineer Intern",
+      company: "Celestica Inc.",
+      location: "Chennai, India",
+      duration: "May 2025 - Jul 2025",
+      highlights: [
+        "Automated platform validation on Celestica DS3001/DS4001, reducing validation time by ~50%",
+        "Engineered a production-ready web application to manage and reserve shared network hardware",
+        "Analyzed and compared algorithms for memory spike detection in networking devices",
+        "Contributed to platform bring-up and kernel upgradation for community SONiC",
+        "Rewrote kernel modules in Python and C for code quality improvements"
+      ]
+    }
+  ];
 
   return (
-    <Section title="Experience" icon="💼">
-      <div className="space-y-8">
-        {experiences?.map((exp, index) => (
-          <Card key={exp.id} hover className="relative">
-            {/* Timeline indicator */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-600 rounded-l" />
+    <div className="min-h-screen bg-white py-16 px-4">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-bold mb-2">Experience</h1>
+        <p className="text-gray-500 mb-12">Professional work and internships</p>
 
-            {/* Content */}
-            <div className="pl-6">
+        <div className="space-y-12">
+          {experience.map((job) => (
+            <div key={job.id} className="border-l-4 border-blue-600 pl-6">
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">{exp.position}</h3>
-                  <p className="text-blue-400 text-lg">{exp.company}</p>
+                  <h2 className="text-2xl font-semibold">{job.title}</h2>
+                  <p className="text-blue-600 font-medium">{job.company}</p>
                 </div>
-                <span className="text-sm text-gray-400 whitespace-nowrap ml-4">
-                  {exp.duration}
-                </span>
+                <span className="text-sm text-gray-500 whitespace-nowrap">{job.duration}</span>
               </div>
 
-              {/* Description */}
-              <ul className="list-disc list-inside space-y-2 my-4">
-                {exp.highlights?.map((highlight, idx) => (
-                  <li key={idx} className="text-gray-300">
-                    {highlight}
+              <p className="text-gray-600 text-sm mb-4">{job.location}</p>
+
+              <ul className="space-y-2">
+                {job.highlights.map((highlight, idx) => (
+                  <li key={idx} className="text-gray-700 text-sm leading-relaxed flex gap-3">
+                    <span className="text-blue-600 font-bold">•</span>
+                    <span>{highlight}</span>
                   </li>
                 ))}
               </ul>
-
-              {/* Skills */}
-              {exp.skills && exp.skills.length > 0 && (
-                <div>
-                  <p className="text-gray-400 text-sm font-semibold mb-2">Skills:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.skills.map((skill) => (
-                      <Badge key={skill} variant="secondary" className="text-xs">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
-          </Card>
-        ))}
+          ))}
+        </div>
       </div>
-    </Section>
+    </div>
   );
 };
 

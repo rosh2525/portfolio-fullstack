@@ -1,84 +1,60 @@
-import { Section, Card, Badge } from '../components/UI';
+import { useState } from 'react';
 
-/**
- * Home page - Hero section
- */
-export const HomePage = () => (
-  <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
-    <div className="max-w-4xl text-center space-y-8">
-      {/* Avatar */}
-      <div className="mb-8">
-        <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1">
-          <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center text-4xl">
-            👨‍💻
-          </div>
+export const HomePage = () => {
+  const [hoveredLink, setHoveredLink] = useState(null);
+
+  return (
+    <div className="min-h-screen bg-white text-gray-900 flex flex-col items-center justify-center px-4">
+      <div className="max-w-2xl text-center space-y-8">
+        {/* Minimal Header */}
+        <div className="space-y-4">
+          <div className="text-sm font-mono text-gray-500">Welcome to my portfolio</div>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
+            Roshan Kumar
+          </h1>
+          <p className="text-lg text-gray-600">
+            Software Engineer | Full Stack Developer | AI/ML Enthusiast
+          </p>
+        </div>
+
+        {/* Bio */}
+        <div className="text-gray-700 leading-relaxed text-base max-w-xl mx-auto">
+          <p>
+            B.Tech in Bioengineering from IIT Jodhpur. Building scalable applications with Python, Java, and cloud infrastructure. 
+            Experience in embedded systems, network automation, and AI-driven solutions.
+          </p>
+        </div>
+
+        {/* Contact Links */}
+        <div className="flex flex-col items-center gap-3 pt-8">
+          <a
+            href="https://github.com/rosh2525"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm hover:text-blue-600 transition"
+          >
+            GitHub
+          </a>
+          <div className="w-12 h-px bg-gray-300"></div>
+          <a
+            href="https://linkedin.com/in/roshan-kumar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm hover:text-blue-600 transition"
+          >
+            LinkedIn
+          </a>
+          <div className="w-12 h-px bg-gray-300"></div>
+          <a
+            href="mailto:techsavvy.roshan@gmail.com"
+            className="text-sm hover:text-blue-600 transition"
+          >
+            Email
+          </a>
         </div>
       </div>
-
-      {/* Title */}
-      <div className="space-y-4">
-        <h1 className="text-5xl md:text-7xl font-bold">
-          <span className="text-white">Hi, I'm </span>
-          <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Roshan Kumar
-          </span>
-        </h1>
-        <p className="text-2xl md:text-3xl text-gray-400 font-light">
-          Software Engineer | Full Stack Developer | AI/ML Enthusiast
-        </p>
-      </div>
-
-      {/* Description */}
-      <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-        B.Tech in Bioengineering from IIT Jodhpur. Passionate about building scalable applications with Python, Java, and cloud infrastructure.
-        Experience in embedded systems, network automation, and AI-driven solutions.
-      </p>
-
-      {/* CTA Buttons */}
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-8">
-        <a
-          href="#projects"
-          className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition transform hover:scale-105"
-        >
-          View My Work
-        </a>
-        <a
-          href="#contact"
-          className="px-8 py-3 border-2 border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg font-semibold transition"
-        >
-          Get In Touch
-        </a>
-      </div>
-
-      {/* Contact Info */}
-      <div className="pt-8 space-y-2 text-gray-400 text-sm">
-        <p>📧 techsavvy.roshan@gmail.com | b23bb1037@iitj.ac.in</p>
-        <p>📱 +91-7604864645</p>
-      </div>
-
-      {/* Quick Links */}
-      <div className="flex justify-center items-center gap-6 pt-8">
-        <a href="https://github.com/rosh2525" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
-          GitHub
-        </a>
-        <span className="text-gray-600">•</span>
-        <a href="https://linkedin.com/in/roshan-kumar" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
-          LinkedIn
-        </a>
-        <span className="text-gray-600">•</span>
-        <a href="https://codeforces.com/profile/RoshanKumar2525" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
-          Codeforces
-        </a>
-      </div>
     </div>
-
-    {/* Scroll indicator */}
-    <div className="absolute bottom-8 animate-bounce">
-      <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-      </svg>
-    </div>
-  </div>
-);
+  );
+};
 
 export default HomePage;

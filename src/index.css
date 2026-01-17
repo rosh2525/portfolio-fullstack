@@ -1,17 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-* {
-  @apply transition-colors duration-200;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  @apply bg-gray-900 text-white;
+:root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -19,32 +6,58 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Custom scrollbar */
+body {
+  background-color: #ffffff;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1f2937;
+  background: #f3f4f6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4b5563;
+  background: #d1d5db;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: #9ca3af;
 }
 
-/* Smooth animations */
-@keyframes slideIn {
+/* Animations */
+@keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -55,34 +68,11 @@ code {
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-.animate-slide-in {
-  animation: slideIn 0.5s ease-out;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out;
-}
-
-/* Gradient text */
-.text-gradient {
-  @apply bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent;
-}
-
-/* Glow effect */
-.glow {
-  @apply shadow-lg shadow-blue-500/50;
-}
-
-/* Cards with glass effect */
-.glass {
-  @apply bg-white/10 backdrop-blur-md border border-white/20;
+/* Utility Classes */
+.transition {
+  transition: all 0.2s ease-in-out;
 }

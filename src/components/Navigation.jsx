@@ -1,97 +1,41 @@
-import { useState } from 'react';
-import { useAppContext } from '../context/AppContext';
+import { Link, useLocation } from 'react-router-dom';
 
-/**
- * Navigation component with theme toggle
- */
-export const Navigation = ({ currentPage, onNavigate }) => {
-  const { isDark, toggleTheme } = useAppContext();
-  const [isOpen, setIsOpen] = useState(false);
+export const Navigation = () => {
+  const location = useLocation();
 
-  const navItems = [
-    { id: 'home', label: 'Home', icon: '🏠' },
-    { id: 'projects', label: 'Projects', icon: '💻' },
-    { id: 'experience', label: 'Experience', icon: '💼' },
-    { id: 'education', label: 'Education', icon: '🎓' },
-    { id: 'skills', label: 'Skills', icon: '⚡' },
-    { id: 'contact', label: 'Contact', icon: '✉️' },
-  ];
+  const isActive = (path) => {
+    return location.pathname === path ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900';
+  };
 
   return (
-    <nav className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 border-b border-gray-700 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <button
-              onClick={() => onNavigate('home')}
-              className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:from-blue-300 hover:to-purple-400 transition"
-            >
-              RK
-            </button>
-          </div>
+    <nav className="sticky top-0 bg-white border-b border-gray-200 z-40">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link to="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition">
+          RK
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition ${
-                  currentPage === item.id
-                    ? 'bg-blue-500 text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
-                }`}
-              >
-                <span className="mr-1">{item.icon}</span>
-                {item.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Right side actions */}
-          <div className="flex items-center space-x-4">
-            {/* Theme toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 transition"
-              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {isDark ? '☀️' : '🌙'}
-            </button>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 transition"
-            >
-              {isOpen ? '✕' : '☰'}
-            </button>
-          </div>
+        {/* Navigation Links */}
+        <div className="flex items-center gap-8">
+          <Link to="/" className={`text-sm transition ${isActive('/')}`}>
+            Home
+          </Link>
+          <Link to="/projects" className={`text-sm transition ${isActive('/projects')}`}>
+            Projects
+          </Link>
+          <Link to="/experience" className={`text-sm transition ${isActive('/experience')}`}>
+            Experience
+          </Link>
+          <Link to="/education" className={`text-sm transition ${isActive('/education')}`}>
+            Education
+          </Link>
+          <Link to="/skills" className={`text-sm transition ${isActive('/skills')}`}>
+            Skills
+          </Link>
+          <Link to="/contact" className={`text-sm transition ${isActive('/contact')}`}>
+            Contact
+          </Link>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden pb-3 space-y-1">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  onNavigate(item.id);
-                  setIsOpen(false);
-                }}
-                className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition ${
-                  currentPage === item.id
-                    ? 'bg-blue-500 text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
-                }`}
-              >
-                <span className="mr-2">{item.icon}</span>
-                {item.label}
-              </button>
-            ))}
-          </div>
-        )}
       </div>
     </nav>
   );

@@ -1,4 +1,4 @@
-import { Section, Card, Badge } from './UI';
+import { Section, Card, Badge } from '../components/UI';
 
 /**
  * Education page - Static education info (can be fetched from API if needed)

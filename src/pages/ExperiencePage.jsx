@@ -1,6 +1,6 @@
 import { useFetch } from '../hooks';
 import { experienceService } from '../services/dataService';
-import { Section, Card, Badge, Skeleton, ErrorMessage } from './UI';
+import { Section, Card, Badge, Skeleton, ErrorMessage } from '../components/UI';
 
 /**
  * Experience page - Display work experiences from backend

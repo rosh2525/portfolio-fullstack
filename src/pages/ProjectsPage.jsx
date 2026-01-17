@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useFetch } from '../hooks';
 import { projectService } from '../services/dataService';
-import { Section, Card, Badge, Skeleton, Spinner, ErrorMessage } from './UI';
+import { Section, Card, Badge, Skeleton, Spinner, ErrorMessage } from '../components/UI';
 
 /**
  * Projects page - Display all projects from backend

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm, useLocalStorage } from '../hooks';
-import { Section, Card, Button, SuccessMessage, ErrorMessage } from './UI';
+import { Section, Card, Button, SuccessMessage, ErrorMessage } from '../components/UI';
 
 /**
  * Contact page - Contact form with validation

@@ -1,4 +1,4 @@
-import { Section, Card, Badge } from './UI';
+import { Section, Card, Badge } from '../components/UI';
 
 /**
  * Skills page - Display skills organized by category

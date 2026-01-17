@@ -6,35 +6,37 @@ export const Contact = () => {
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
+  const [feedback, setFeedback] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+    setFeedback(null);
+
     try {
-      const response = await fetch('http://localhost:8080/api/contact', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+      const response = await fetch(`${apiUrl}/api/v1/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        setMessage({ type: 'success', text: 'Message sent successfully!' });
+        setFeedback({ type: 'success', text: 'Message sent successfully. I will get back to you soon.' });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        setMessage({ type: 'error', text: 'Failed to send message' });
+        setFeedback({ type: 'error', text: 'Failed to send message. Please try again later.' });
       }
     } catch (err) {
-      setMessage({ type: 'error', text: err.message });
+      setFeedback({ type: 'error', text: 'Unable to reach server. Please try again later.' });
     } finally {
       setLoading(false);
     }
@@ -59,8 +61,11 @@ export const Contact = () => {
                   <Mail size={20} className="text-gray-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-gray-600 text-sm">Email</p>
-                    <a href="mailto:your-email@example.com" className="text-gray-900 font-medium hover:text-blue-600 transition">
-                      your-email@example.com
+                    <a
+                      href="mailto:techsavvy.roshan@gmail.com"
+                      className="text-gray-900 font-medium hover:text-blue-600 transition"
+                    >
+                      techsavvy.roshan@gmail.com
                     </a>
                   </div>
                 </div>
@@ -69,8 +74,11 @@ export const Contact = () => {
                   <Phone size={20} className="text-gray-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-gray-600 text-sm">Phone</p>
-                    <a href="tel:+1234567890" className="text-gray-900 font-medium hover:text-blue-600 transition">
-                      +1 (234) 567-890
+                    <a
+                      href="tel:+917604864645"
+                      className="text-gray-900 font-medium hover:text-blue-600 transition"
+                    >
+                      +91 76048 64645
                     </a>
                   </div>
                 </div>
@@ -79,7 +87,7 @@ export const Contact = () => {
                   <MapPin size={20} className="text-gray-400 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-gray-600 text-sm">Location</p>
-                    <p className="text-gray-900 font-medium">Your City, Country</p>
+                    <p className="text-gray-900 font-medium">Jodhpur, India</p>
                   </div>
                 </div>
               </div>
@@ -140,13 +148,15 @@ export const Contact = () => {
               />
             </div>
 
-            {message && (
-              <div className={`p-4 rounded-lg text-sm ${
-                message.type === 'success'
-                  ? 'bg-green-50 text-green-700 border border-green-200'
-                  : 'bg-red-50 text-red-700 border border-red-200'
-              }`}>
-                {message.text}
+            {feedback && (
+              <div
+                className={`p-4 rounded-lg text-sm ${
+                  feedback.type === 'success'
+                    ? 'bg-green-50 text-green-700 border border-green-200'
+                    : 'bg-red-50 text-red-700 border border-red-200'
+                }`}
+              >
+                {feedback.text}
               </div>
             )}
 

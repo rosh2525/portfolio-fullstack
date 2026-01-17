@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Linkedin, Mail, Code2, Zap, Target } from 'lucide-react';
+import ResumeButton from '../components/ResumeButton';
 
 export const Home = () => {
   return (
@@ -26,7 +27,7 @@ export const Home = () => {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap gap-3 pt-2 items-center">
               <Link
                 to="/projects"
                 className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-blue-700 hover:shadow-lg transition"
@@ -35,12 +36,13 @@ export const Home = () => {
                 <ArrowRight size={18} />
               </Link>
               <a
-                href="mailto:your-email@example.com"
+                href="mailto:techsavvy.roshan@gmail.com"
                 className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 hover:border-slate-300 transition"
               >
                 <Mail size={18} />
                 Get in touch
               </a>
+              <ResumeButton />
             </div>
 
             <div className="flex items-center gap-4 pt-4 text-sm text-slate-500">
